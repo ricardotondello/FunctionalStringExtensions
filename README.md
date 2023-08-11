@@ -1,4 +1,4 @@
-# FunctionalStringExtensions
+# 🧶 FunctionalStringExtensions
 
 [![Build](https://github.com/ricardotondello/FunctionalStringExtensions/actions/workflows/dotnet.yml/badge.svg?branch=main)](https://github.com/ricardotondello/FunctionalStringExtensions/actions/workflows/dotnet.yml)
 [![Code Coverage](https://img.shields.io/badge/Code%20Coverage-100%25-success?style=flat)](https://ricardotondello.github.io/FunctionalStringExtensions/unittests)
@@ -10,7 +10,7 @@ These extensions are designed to make common string manipulation tasks more conv
 Whether you're dealing with default values, asynchronous operations, or executing actions based on string conditions,
 these extensions aim to simplify your code and enhance its readability.
 
-## Installation
+## Installation 🚀
 
 To easily integrate the StringExtensions library into your project, you can use NuGet Package Manager. 
 NuGet is a package manager for .NET that simplifies the process of adding, removing, 
@@ -22,7 +22,7 @@ After that import the `FunctionalStringExtensions` namespace in your code files 
    using FunctionalStringExtensions;
    ```
 
-## Available Extension Methods
+## Available Extension Methods 🛠️
 
 ### `string? OrDefault(string? value, string @default)`
 
@@ -102,16 +102,16 @@ Similar to the `OnNullOrEmpty` method, this asynchronous extension executes a pr
 await input.OnNullOrEmptyAsync(async () => await PerformAsyncAction());
 ```
 
-## Contributing
+## Contributing 👥
 
 Contributions are welcome! If you find a bug or have a feature request, please open an issue on GitHub.
 If you would like to contribute code, please fork the repository and submit a pull request.
 
-## License
+## License 📄
 
 This project is licensed under the MIT License.
 See [LICENSE](https://github.com/ricardotondello/FunctionalStringExtensions/blob/main/LICENSE) for more information.
 
-## Support
+## Support ☕
 
 <a href="https://www.buymeacoffee.com/ricardotondello" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
