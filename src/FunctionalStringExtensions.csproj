@@ -7,12 +7,13 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Copyright>Ricardo Tondello</Copyright>
         <Description>These extensions are designed to make common string manipulation tasks more convenient and expressive. Whether you're dealing with default values, asynchronous operations, or executing actions based on string conditions, these extensions aim to simplify your code and enhance its readability.</Description>
-        <RepositoryUrl>https://github.com/ricardotondello/StringExtensions</RepositoryUrl>
-        <Title>StringExtensions</Title>
+        <RepositoryUrl>https://github.com/ricardotondello/FunctionalStringExtensions</RepositoryUrl>
+        <Title>FunctionalStringExtensions</Title>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <Authors>Ricardo Tondello</Authors>
         <PackageIcon>convenient.png</PackageIcon>
+        <RootNamespace>FunctionalStringExtensions</RootNamespace>
     </PropertyGroup>
     <ItemGroup>
         <None Include="..\README.md" Pack="true" PackagePath="\"/>

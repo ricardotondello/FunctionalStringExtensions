@@ -1,9 +1,9 @@
 using FluentAssertions;
-using StringExtensions;
+using FunctionalStringExtensions;
 
-namespace StringExtensionsTests;
+namespace FunctionalStringExtensionsTests;
 
-public class StringExtensionsTests
+public class FunctionalStringExtensionsTests
 {
     [Theory]
     [InlineData(null)]

@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringExtensions", "src\StringExtensions.csproj", "{1C8497A1-B085-4410-B7FB-C4E28D4D664D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionalStringExtensions", "src\FunctionalStringExtensions.csproj", "{1C8497A1-B085-4410-B7FB-C4E28D4D664D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringExtensionsTests", "tests\StringExtensionsTests\StringExtensionsTests.csproj", "{B46BCA77-C8BD-4335-9006-57D107F43ABC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionalStringExtensionsTests", "tests\FunctionalStringExtensionsTests\FunctionalStringExtensionsTests.csproj", "{B46BCA77-C8BD-4335-9006-57D107F43ABC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

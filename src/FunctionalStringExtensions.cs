@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace StringExtensions;
+namespace FunctionalStringExtensions;
 
-public static class StringExtensions
+public static class FunctionalStringExtensions
 {
     public static string OrDefault(this string? value, string @default) =>
         string.IsNullOrEmpty(value) ? @default : value;
