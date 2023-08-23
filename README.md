@@ -2,7 +2,7 @@
 
 [![Build](https://github.com/ricardotondello/FunctionalStringExtensions/actions/workflows/dotnet.yml/badge.svg?branch=main)](https://github.com/ricardotondello/FunctionalStringExtensions/actions/workflows/dotnet.yml)
 [![Qodana](https://github.com/ricardotondello/FunctionalStringExtensions/actions/workflows/code_quality.yml/badge.svg)](https://qodana.cloud/projects/AN25j/reports/dloDM)
-[![Code Coverage](https://img.shields.io/badge/Code%20Coverage-100%25-success?style=flat)](https://ricardotondello.github.io/FunctionalStringExtensions/unittests)
+[![Code Coverage](https://img.shields.io/badge/Code_Coverage-Click_Here-green)](https://ricardotondello.github.io/FunctionalStringExtensions/unittests)
 [![NuGet latest version](https://badgen.net/nuget/v/FunctionalStringExtensions/latest)](https://nuget.org/packages/FunctionalStringExtensions)
 [![NuGet downloads](https://img.shields.io/nuget/dt/FunctionalStringExtensions)](https://www.nuget.org/packages/FunctionalStringExtensions)
 
