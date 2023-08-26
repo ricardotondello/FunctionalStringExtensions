@@ -7,7 +7,7 @@ these extensions aim to simplify your code and enhance its readability.
 
 ## Installation 🚀
 
-To easily integrate the StringExtensions library into your project, you can use NuGet Package Manager. 
+To easily integrate the FunctionalStringExtensions library into your project, you can use NuGet Package Manager. 
 NuGet is a package manager for .NET that simplifies the process of adding, removing, 
 and updating libraries in your applications.
 
