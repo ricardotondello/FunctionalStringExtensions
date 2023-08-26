@@ -1,8 +1,8 @@
 # 🧶 FunctionalStringExtensions
 
 [![Build](https://github.com/ricardotondello/FunctionalStringExtensions/actions/workflows/dotnet.yml/badge.svg?branch=main)](https://github.com/ricardotondello/FunctionalStringExtensions/actions/workflows/dotnet.yml)
-[![Qodana](https://github.com/ricardotondello/FunctionalStringExtensions/actions/workflows/code_quality.yml/badge.svg)](https://qodana.cloud/projects/AN25j/reports/dloDM)
-[![Code Coverage](https://img.shields.io/badge/Code_Coverage-Click_Here-green)](https://ricardotondello.github.io/FunctionalStringExtensions/unittests)
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=awesome-ric_functionalstringextensions&metric=alert_status)](https://sonarcloud.io/dashboard?id=awesome-ric_functionalstringextensions)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=awesome-ric_functionalstringextensions&metric=coverage)](https://sonarcloud.io/component_measures?id=awesome-ric_functionalstringextensions&metric=coverage)
 [![NuGet latest version](https://badgen.net/nuget/v/FunctionalStringExtensions/latest)](https://nuget.org/packages/FunctionalStringExtensions)
 [![NuGet downloads](https://img.shields.io/nuget/dt/FunctionalStringExtensions)](https://www.nuget.org/packages/FunctionalStringExtensions)
 
@@ -13,7 +13,7 @@ these extensions aim to simplify your code and enhance its readability.
 
 ## Installation 🚀
 
-To easily integrate the StringExtensions library into your project, you can use NuGet Package Manager. 
+To easily integrate the FunctionalStringExtensions library into your project, you can use NuGet Package Manager. 
 NuGet is a package manager for .NET that simplifies the process of adding, removing, 
 and updating libraries in your applications.
 
