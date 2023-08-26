@@ -1,8 +1,8 @@
 # 🧶 FunctionalStringExtensions
 
 [![Build](https://github.com/ricardotondello/FunctionalStringExtensions/actions/workflows/dotnet.yml/badge.svg?branch=main)](https://github.com/ricardotondello/FunctionalStringExtensions/actions/workflows/dotnet.yml)
-[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=awesome-ric_functionalstringextensions&metric=alert_status)](https://sonarcloud.io/dashboard?id=awesome-ric_functionalstringextensions)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=awesome-ric_functionalstringextensions&metric=coverage)](https://sonarcloud.io/component_measures?id=awesome-ric_functionalstringextensions&metric=coverage)
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=ricardotondello_FunctionalStringExtensions&metric=alert_status)](https://sonarcloud.io/dashboard?id=ricardotondello_FunctionalStringExtensions)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=ricardotondello_FunctionalStringExtensions&metric=coverage)](https://sonarcloud.io/component_measures?id=ricardotondello_FunctionalStringExtensions&metric=coverage)
 [![NuGet latest version](https://badgen.net/nuget/v/FunctionalStringExtensions/latest)](https://nuget.org/packages/FunctionalStringExtensions)
 [![NuGet downloads](https://img.shields.io/nuget/dt/FunctionalStringExtensions)](https://www.nuget.org/packages/FunctionalStringExtensions)
 
