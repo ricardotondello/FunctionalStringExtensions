@@ -7,7 +7,7 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-  call-workflow:
+  sonar-cloud:
     uses: ricardotondello/shared-workflows/.github/workflows/code_quality.yml@main
     secrets:
       inherit
