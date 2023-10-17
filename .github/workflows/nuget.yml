@@ -7,6 +7,6 @@ on:
 
 jobs:
   call-workflow:
-  uses: ricardotondello/shared-workflows/.github/workflows/nuget.yml@master
+  uses: ricardotondello/shared-workflows/.github/workflows/nuget.yml@main
   secrets:
     NUGET_AUTH_TOKEN: {{ secrets.NUGET_AUTH_TOKEN }}

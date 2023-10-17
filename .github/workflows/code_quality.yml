@@ -8,7 +8,7 @@ on:
 
 jobs:
   call-workflow:
-    uses: ricardotondello/shared-workflows/.github/workflows/code_quality.yml@master
+    uses: ricardotondello/shared-workflows/.github/workflows/code_quality.yml@main
     secrets:
       SONAR_TOKEN: {{ secrets.SONAR_TOKEN }}
       SONAR_PROJECTKEY: {{ secrets.SONAR_PROJECTKEY }}

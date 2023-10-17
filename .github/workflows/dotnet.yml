@@ -9,4 +9,4 @@ on:
 
 jobs:
   call-workflow:
-  uses: ricardotondello/shared-workflows/.github/workflows/dotnet.yml@master
+  uses: ricardotondello/shared-workflows/.github/workflows/dotnet.yml@main
