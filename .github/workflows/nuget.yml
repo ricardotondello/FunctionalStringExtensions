@@ -7,6 +7,6 @@ on:
 
 jobs:
   call-workflow:
-  uses: ricardotondello/shared-workflows/.github/workflows/nuget.yml@main
-  secrets:
-      inherit
+    uses: ricardotondello/shared-workflows/.github/workflows/nuget.yml@main
+    secrets:
+        inherit
