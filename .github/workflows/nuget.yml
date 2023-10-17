@@ -1,4 +1,4 @@
-name: "Deploy to NuGet"
+name: Deploy to NuGet
 
 on:
   push:
