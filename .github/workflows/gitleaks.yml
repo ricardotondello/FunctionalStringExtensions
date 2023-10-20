@@ -1,0 +1,15 @@
+name: Git Leaks
+
+on:
+  push:
+    branches: 
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+jobs:
+  gitleaks-scan:
+    uses: ricardotondello/shared-workflows/.github/workflows/gitleaks.yml@main
+    secrets:
+        inherit
