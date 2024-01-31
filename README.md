@@ -19,88 +19,87 @@ and updating libraries in your applications.
 
 After that import the `FunctionalStringExtensions` namespace in your code files where you want to use the provided extension methods:
 
-   ```csharp
-   using FunctionalStringExtensions;
-   ```
+```csharp
+using FunctionalStringExtensions;
+```
 
 ## Available Extension Methods 🛠️
 
-### `string? OrDefault(string? value, string @default)`
+### `OrDefault`
 
 This extension method returns the provided default value if the input string is null or empty.
-
-**Parameters:**
-- `value` (string?): The input string.
-- `@default` (string): The default value to return if the input string is null or empty.
 
 **Usage:**
 ```csharp
 string result = input.OrDefault("default value");
 ```
 
-### `async Task<string> OrDefaultAsync(string? value, Task<string> @default)`
+### `OrDefaultAsync`
 
 Similar to the `OrDefault` method, this asynchronous extension returns a default value obtained from a `Task<string>` if the input string is null or empty.
-
-**Parameters:**
-- `value` (string?): The input string.
-- `@default` (Task<string>): A task that provides the default value to return if the input string is null or empty.
 
 **Usage:**
 ```csharp
 string result = await input.OrDefaultAsync(Task.FromResult("default value"));
 ```
 
-### `string? WhenNullOrEmpty(string? value, Func<string> fnDefault)`
+### `WhenNullOrEmpty`
 
 This extension method returns the result of the provided delegate function if the input string is null or empty.
-
-**Parameters:**
-- `value` (string?): The input string.
-- `fnDefault` (Func<string>): A delegate function that returns the default value if the input string is null or empty.
 
 **Usage:**
 ```csharp
 string result = input.WhenNullOrEmpty(() => "default value");
 ```
 
-### `async Task<string> WhenNullOrEmptyAsync(string? value, Func<Task<string>> fnDefault)`
+### `WhenNullOrEmptyAsync`
 
 Similar to the `WhenNullOrEmpty` method, this asynchronous extension returns a value obtained from a `Task<string>` returned by the delegate function if the input string is null or empty.
-
-**Parameters:**
-- `value` (string?): The input string.
-- `fnDefault` (Func<Task<string>>): An asynchronous delegate function that returns a task providing the default value if the input string is null or empty.
 
 **Usage:**
 ```csharp
 string result = await input.WhenNullOrEmptyAsync(async () => await GetDefaultValueAsync());
 ```
 
-### `void OnNullOrEmpty(string? value, Action action)`
+### `OnNullOrEmpty`
 
 This extension method executes the provided action if the input string is null or empty.
-
-**Parameters:**
-- `value` (string?): The input string.
-- `action` (Action): The action to execute if the input string is null or empty.
 
 **Usage:**
 ```csharp
 input.OnNullOrEmpty(() => Console.WriteLine("Input is null or empty."));
 ```
 
-### `async Task OnNullOrEmptyAsync(string? value, Task action)`
+### `OnNullOrEmptyAsync`
 
 Similar to the `OnNullOrEmpty` method, this asynchronous extension executes a provided task if the input string is null or empty.
-
-**Parameters:**
-- `value` (string?): The input string.
-- `action` (Task): The task to execute if the input string is null or empty.
 
 **Usage:**
 ```csharp
 await input.OnNullOrEmptyAsync(async () => await PerformAsyncAction());
+```
+
+### `ToSlug`
+
+Turns your string in a slug
+
+**Usage**
+```csharp
+var slug = "ICH MUß EINIGE CRÈME BRÛLÉE HABEN".ToSlug();
+```
+
+### `ToEnum`
+
+**Usage**
+```csharp
+
+public enum FakeEnum
+{
+    Value1,
+    Value2
+}
+
+var result = "Value1".ToEnum<FakeEnum>(); // FakeEnum.Value1
 ```
 
 ## Contributing 👥

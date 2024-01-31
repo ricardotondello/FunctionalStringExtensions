@@ -138,4 +138,64 @@ public class FunctionalStringExtensionsTests
             change++;
         }
     }
+
+    [Theory]
+    [InlineData("", "")]
+    [InlineData(null, "")]
+    [InlineData("ICH MUß EINIGE CRÈME BRÛLÉE HABEN", "ich_mu_einige_cr_me_br_l_e_haben")]
+    [InlineData("I'm a cute string/\"\"\\/", "i_m_a_cute_string")]
+    public void ShouldMakeStringAsSlugs(string? text, string expected)
+    {
+        //Arrange Act
+        var result = text.ToSlug();
+        
+        //Assert
+        result.Should().Be(expected);
+    }
+
+    [Fact]
+    public void ToEnumShouldTransformToEnumStruct()
+    {
+        //Arrange
+        var stringEnum = "Value1";
+        
+        //Act
+        var result = stringEnum.ToEnum<FakeEnum>();
+        
+        //Assert
+        result.Should().Be(FakeEnum.Value1);
+    }
+    
+    [Theory]
+    [InlineData(FakeEnum.Value2)]
+    public void ToEnumShouldReturnChosenDefaultValueWhenStringIsInvalid(FakeEnum fakeEnum)
+    {
+        //Arrange
+        var stringEnum = "Invalid";
+        
+        //Act
+        var result = stringEnum.ToEnum<FakeEnum>(fakeEnum);
+        
+        //Assert
+        result.Should().Be(fakeEnum);
+    }
+    
+    [Fact]
+    public void ToEnumShouldReturnDefaultValueWhenStringIsInvalid()
+    {
+        //Arrange
+        var stringEnum = "Invalid";
+        
+        //Act
+        var result = stringEnum.ToEnum<FakeEnum>();
+        
+        //Assert
+        result.Should().Be(FakeEnum.Value1);
+    }
+}
+
+public enum FakeEnum
+{
+    Value1,
+    Value2
 }
