@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -156,12 +157,9 @@ public static class FunctionalStringExtensions
         var chars = value.ToCharArray();
         var sb = new StringBuilder(chars.Length);
 
-        foreach (var c in chars)
+        foreach (var c in chars.Where(predicate))
         {
-            if (predicate(c))
-            {
-                sb.Append(c);
-            }
+            sb.Append(c);
         }
 
         return sb.ToString();
