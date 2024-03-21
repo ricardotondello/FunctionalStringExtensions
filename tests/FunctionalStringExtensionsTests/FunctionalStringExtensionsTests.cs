@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using FluentAssertions;
 using FunctionalStringExtensions;
 
@@ -152,6 +153,19 @@ public class FunctionalStringExtensionsTests
         //Assert
         result.Should().Be(expected);
     }
+    
+    [Fact]
+    public void ToSlugShouldThrowRegexMatchTimeoutExceptionWhenStringIsToLong()
+    {
+        //Arrange
+        var text = string.Concat(Enumerable.Repeat("a", 10_000_000));
+        
+        // Act
+        Action act = () => text.ToSlug();
+        
+        //Assert
+        act.Should().Throw<RegexMatchTimeoutException>();
+    }
 
     [Fact]
     public void ToEnumShouldTransformToEnumStruct()
@@ -191,6 +205,72 @@ public class FunctionalStringExtensionsTests
         
         //Assert
         result.Should().Be(FakeEnum.Value1);
+    }
+
+    [Theory]
+    [InlineData(null, "")]
+    [InlineData("", "")]
+    [InlineData("abc123def456ghi", "abcdefghi")]
+    [InlineData("123456", "")]
+    [InlineData("1a2b3c4d5e", "abcde")]
+    [InlineData("12.8/0';@#!%^&*()a12,9", "a")]
+    public void OnlyLettersShouldReturnOnlyLetters(string? value, string expected)
+    {
+        //Arrange & Act
+        var result = value.OnlyLetters();
+        
+        //Assert
+        result.Should().Be(expected);
+    }
+    
+    [Theory]
+    [InlineData(null, "")]
+    [InlineData("", "")]
+    [InlineData("abc123def456ghi", "123456")]
+    [InlineData("abc", "")]
+    [InlineData("123456", "123456")]
+    [InlineData("1a2b3c4d5e", "12345")]
+    [InlineData("12.8/0';@#!%^&*()a12,9", "1280129")]
+    public void OnlyNumbersShouldReturnOnlyNumbers(string? value, string expected)
+    {
+        //Arrange & Act
+        var result = value.OnlyNumbers();
+        
+        //Assert
+        result.Should().Be(expected);
+    }
+    
+    [Theory]
+    [InlineData(null, "")]
+    [InlineData("", "")]
+    [InlineData("abc123def456ghi", "abc123def456ghi")]
+    [InlineData("abc", "abc")]
+    [InlineData("123456", "123456")]
+    [InlineData("12.8/0';@#!%^&*()a12,9abc", "1280a129abc")]
+    public void OnlyCharactersAndNumbersShouldReturnOnlyCharactersAndNumbers(string? value, string expected)
+    {
+        //Arrange & Act
+        var result = value.OnlyCharactersAndNumbers();
+        
+        //Assert
+        result.Should().Be(expected);
+    }
+    
+    [Theory]
+    [InlineData(null, "")]
+    [InlineData("", "")]
+    [InlineData("abc123def456ghi", "")]
+    [InlineData("abc", "")]
+    [InlineData("123456", "")]
+    [InlineData("1a2b3c4d5e", "")]
+    [InlineData("12.8/0';@#!%^&*()a12,9abc", "./';@#!%^&*(),")]
+    public void OnlySpecialCharactersShouldReturnOnlySpecialCharacters(string? value, string expected)
+    {
+        //Arrange & Act
+        var result = value.OnlySpecialCharacters();
+        
+        //Assert
+        result.Should().Be(expected);
     }
 }
 
