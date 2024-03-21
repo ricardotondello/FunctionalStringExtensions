@@ -90,6 +90,8 @@ var slug = "ICH MUß EINIGE CRÈME BRÛLÉE HABEN".ToSlug();
 
 ### `ToEnum`
 
+Parse your string to a Enum value
+
 **Usage**
 ```csharp
 
@@ -100,6 +102,42 @@ public enum FakeEnum
 }
 
 var result = "Value1".ToEnum<FakeEnum>(); // FakeEnum.Value1
+```
+
+### `OnlyLetters`
+
+Search for letters (A to Z) in the string
+
+**Usage**
+```csharp
+var result = "abc123def456ghi".OnlyLetters(); //"abcdefghi"
+```
+
+### `OnlyNumbers`
+
+Search for numbers (0 to 9) in the string
+
+**Usage**
+```csharp
+var result = "abc123def456ghi".OnlyNumbers(); //"123456"
+```
+
+### `OnlyCharactersAndNumbers`
+
+Search for characters and numbers (A to Z or 0 to 9) in the string
+
+**Usage**
+```csharp
+var result = "12.8/0';@#!%^&*()a12,9abc".OnlyCharactersAndNumbers(); //"1280a129abc"
+```
+
+### `OnlySpecialCharacters`
+
+Search for especial characters (not A to Z and not 0 to 9) in the string
+
+**Usage**
+```csharp
+var result = "12.8/0';@#!%^&*()a12,9abc".OnlySpecialCharacters(); //"./';@#!%^&*(),"
 ```
 
 ## Contributing 👥
