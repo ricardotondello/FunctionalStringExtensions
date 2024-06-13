@@ -277,6 +277,7 @@ public class FunctionalStringExtensionsTests
     [InlineData(null)]
     [InlineData("")]
     [InlineData("not a valid url")]
+    [InlineData("?")]
     public void ParseQueryString_ShouldReturnEmptyListWhenNotAValidInput(string? value)
     {
         var result = value.ParseQueryString();

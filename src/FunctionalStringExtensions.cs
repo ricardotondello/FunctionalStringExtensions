@@ -181,11 +181,11 @@ public static class FunctionalStringExtensions
             .Split('&', StringSplitOptions.RemoveEmptyEntries)
             .Select(part => part.Split('='))
             .ToDictionary(
-                part => UrlDecode(part[0]), 
+                part => HttpUtility.UrlDecode(part[0]), 
                 part =>
                 {
                     var partValue = MaybeGetValue(part);
-                    var decodedValue = UrlDecode(partValue);
+                    var decodedValue = HttpUtility.UrlDecode(partValue);
                     return autoConvertType ? ConvertToType(decodedValue) : decodedValue;
                 });
 
@@ -213,13 +213,6 @@ public static class FunctionalStringExtensions
             }
         
             return valueToConvert;
-        }
-
-        string UrlDecode(string? input)
-        {
-            return string.IsNullOrEmpty(input) 
-                ? string.Empty 
-                : HttpUtility.UrlDecode(input);
         }
     }
     
