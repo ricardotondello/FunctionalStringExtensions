@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace FunctionalStringExtensions;
 
@@ -10,6 +13,7 @@ public static class FunctionalStringExtensions
 {
     private static readonly object Lock = new();
     private static readonly TimeSpan RegexTimeOut = TimeSpan.FromMilliseconds(100);
+    private static readonly IDictionary<string, object> EmptyQueryDictionary = new Dictionary<string, object>(0);
 
     /// <summary>
     /// This extension method returns the provided default value if the input string is null or empty.
@@ -110,7 +114,7 @@ public static class FunctionalStringExtensions
     /// <summary>
     /// Search for letters (A to Z) in the string
     /// </summary>
-    /// <param name="value">input string</param>
+    /// <param name="value">Input <see cref="string"/> value</param>
     /// <returns>The letters present in the string provided</returns>
     public static string OnlyLetters(this string? value)
     {
@@ -120,7 +124,7 @@ public static class FunctionalStringExtensions
     /// <summary>
     /// Search for numbers (0 to 9) in the string
     /// </summary>
-    /// <param name="value">input string</param>
+    /// <param name="value">Input <see cref="string"/> value</param>
     /// <returns>The numbers present in the string provided</returns>
     public static string OnlyNumbers(this string? value)
     {
@@ -130,7 +134,7 @@ public static class FunctionalStringExtensions
     /// <summary>
     /// Search for characters and numbers (A to Z or 0 to 9) in the string
     /// </summary>
-    /// <param name="value">input string</param>
+    /// <param name="value">Input <see cref="string"/> value</param>
     /// <returns>The characters and numbers present in the string provided</returns>
     public static string OnlyCharactersAndNumbers(this string? value)
     {
@@ -140,11 +144,76 @@ public static class FunctionalStringExtensions
     /// <summary>
     /// Search for especial characters (not A to Z and not 0 to 9) in the string
     /// </summary>
-    /// <param name="value">input string</param>
+    /// <param name="value">Input <see cref="string"/> value</param>
     /// <returns>The especial characters present in the string provided</returns>
     public static string OnlySpecialCharacters(this string? value)
     {
         return value.FilterCharacters(c => !char.IsLetterOrDigit(c));
+    }
+
+    /// <summary>
+    /// Parses a query string into a dictionary of key-value pairs.
+    /// </summary>
+    /// <param name="value">The input query string.</param>
+    /// <param name="autoConvertType">Indicates whether to automatically convert the query values to their appropriate types (e.g., int, bool, double). Default is false.</param>
+    /// <returns>
+    /// A dictionary containing the parsed query parameters as key-value pairs. The keys are strings, and the values are objects.
+    /// If the input string is null or empty, an empty dictionary is returned.
+    /// </returns>
+    public static IDictionary<string, object> ParseQueryString(this string? value, bool autoConvertType = false)
+    {
+        var index = value?.IndexOf('?') ?? -1; 
+        if (string.IsNullOrEmpty(value) || index < 0)
+        {
+            return EmptyQueryDictionary;
+        }
+
+        var query = value[0] == '?' 
+            ? value.TrimStart('?') 
+            : value.Substring(index + 1, value.Length - index - 1);
+
+        if (string.IsNullOrEmpty(query))
+        {
+            return EmptyQueryDictionary;
+        }
+        
+        return query
+            .Split('&', StringSplitOptions.RemoveEmptyEntries)
+            .Select(part => part.Split('='))
+            .ToDictionary(
+                part => HttpUtility.UrlDecode(part[0]), 
+                part =>
+                {
+                    var partValue = MaybeGetValue(part);
+                    var decodedValue = HttpUtility.UrlDecode(partValue);
+                    return autoConvertType ? ConvertToType(decodedValue) : decodedValue;
+                });
+
+        string MaybeGetValue(string[] partValue)
+        {
+            return partValue.Length < 2 ? string.Empty : partValue[1];
+        }
+        
+        object ConvertToType(string valueToConvert)
+        {
+            if (int.TryParse(valueToConvert, NumberStyles.Integer, CultureInfo.InvariantCulture, out var intValue))
+            {
+                return intValue;
+            }
+
+            if (bool.TryParse(valueToConvert, out var boolValue))
+            {
+                return boolValue;
+            }
+
+            if (double.TryParse(valueToConvert, NumberStyles.Float | NumberStyles.AllowThousands, 
+                    CultureInfo.InvariantCulture, out var doubleValue))
+            {
+                return doubleValue;
+            }
+        
+            return valueToConvert;
+        }
     }
     
     private static string FilterCharacters(this string? value, Func<char, bool> predicate)

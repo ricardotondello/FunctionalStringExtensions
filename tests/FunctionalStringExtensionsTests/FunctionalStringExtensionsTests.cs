@@ -272,6 +272,92 @@ public class FunctionalStringExtensionsTests
         //Assert
         result.Should().Be(expected);
     }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("not a valid url")]
+    [InlineData("?")]
+    public void ParseQueryString_ShouldReturnEmptyListWhenNotAValidInput(string? value)
+    {
+        var result = value.ParseQueryString();
+
+        result.Should().BeEmpty();
+    }
+    
+    [Theory]
+    [InlineData("http://yoursite.com?variable1=false", "variable1",  false)]
+    [InlineData("http://yoursite.com?variable1=False", "variable1", false)]
+    [InlineData("http://yoursite.com?variable1=1", "variable1", 1)]
+    [InlineData("http://yoursite.com?variable1=19.86", "variable1", 19.86)]
+    [InlineData("?variable1=true", "variable1", true)]
+    [InlineData("?variable1=True", "variable1", true)]
+    [InlineData("?variable1=1", "variable1", 1)]
+    [InlineData("?variable1=0.77", "variable1", 0.77)]
+    [InlineData("?variable1=test", "variable1", "test")]
+    public void ParseQueryString_ConvertType_ShouldReturnListOfKeyValues(string? value, string expectedKey, object expectedValue)
+    {
+        var result = value.ParseQueryString(autoConvertType: true);
+
+        result.Should().NotBeEmpty();
+        result.Should().HaveCount(1);
+        result.First().Key.Should().Be(expectedKey);
+        result.First().Value.Should().Be(expectedValue);
+        result.First().Value.Should().BeOfType(expectedValue.GetType());
+    }
+    
+    [Theory]
+    [InlineData("http://yoursite.com?variable1=false", "variable1",  "false")]
+    [InlineData("http://yoursite.com?variable1=False", "variable1", "False")]
+    [InlineData("http://yoursite.com?variable1=1", "variable1", "1")]
+    [InlineData("http://yoursite.com?variable1=19.86", "variable1", "19.86")]
+    [InlineData("?variable1=true", "variable1", "true")]
+    [InlineData("?variable1=True", "variable1", "True")]
+    [InlineData("?variable1=1", "variable1", "1")]
+    [InlineData("?variable1=0.77", "variable1", "0.77")]
+    [InlineData("?variable1=test", "variable1", "test")]
+    public void ParseQueryString_WithoutConversion_ShouldReturnListOfKeyValues(string? value, string expectedKey, string expectedValue)
+    {
+        var result = value.ParseQueryString(autoConvertType: false);
+
+        result.Should().NotBeEmpty();
+        result.Should().HaveCount(1);
+        result.First().Key.Should().Be(expectedKey);
+        result.First().Value.Should().Be(expectedValue);
+        result.First().Value.Should().BeOfType<string>();
+    }
+    
+    [Theory]
+    [InlineData("?variable1=15&variable2=is that a question?&variable3=true&variable4=33.88&variable5=", "variable1=15|variable2=is that a question?|variable3=true|variable4=33.88|variable5=")]
+    public void ParseQueryString_ShouldReturnListOfKeyValues(string? value, string expectedPipedString)
+    {
+         var result = value.ParseQueryString(autoConvertType: false);
+    
+         var expected = expectedPipedString
+             .Split('|', StringSplitOptions.RemoveEmptyEntries)
+             .Select(s => s.Split('='))
+             .ToDictionary(k => k[0], v => v[1]);
+         
+        result.Should().NotBeEmpty();
+        result.Should().BeEquivalentTo(expected);
+    }
+    
+    [Theory]
+    [InlineData("?not a valid url", "not a valid url=")]
+    [InlineData("?not a valid url&&&&&", "not a valid url=")]
+    [InlineData("?not a valid url&&&&&=value", "not a valid url=|=value")]
+    public void ParseQueryString_EdgeCasesShouldReturnListOfKeyValues(string? value, string expectedPipedString)
+    {
+        var result = value.ParseQueryString(autoConvertType: false);
+    
+        var expected = expectedPipedString
+            .Split('|')
+            .Select(s => s.Split('='))
+            .ToDictionary(k => k.Length > 0? k[0] : string.Empty, v => v.Length > 1 ? v[1]: string.Empty);
+         
+        result.Should().NotBeEmpty();
+        result.Should().BeEquivalentTo(expected);
+    }
 }
 
 public enum FakeEnum
