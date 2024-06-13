@@ -133,3 +133,15 @@ Search for especial characters (not A to Z and not 0 to 9) in the string
 ```csharp
 var result = "12.8/0';@#!%^&*()a12,9abc".OnlySpecialCharacters(); //"./';@#!%^&*(),"
 ```
+
+### `ParseQueryString`
+
+Parses a query string into a dictionary of key-value pairs.
+
+**Usage**
+```csharp
+var queryString = "?name=JohnDoe&age=30&isMember=true";
+var result = queryString.ParseQueryString(autoConvertType: true);
+// result will be a dictionary with keys "name", "age", "isMember"
+// and corresponding values "JohnDoe", 30, true
+```
