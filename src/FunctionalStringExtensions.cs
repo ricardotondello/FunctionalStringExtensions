@@ -162,22 +162,22 @@ public static class FunctionalStringExtensions
     /// </returns>
     public static IDictionary<string, object> ParseQueryString(this string? value, bool autoConvertType = false)
     {
-        var index = value?.IndexOf('?') ?? -1; 
-        if (string.IsNullOrEmpty(value) || index < 0)
+        if (string.IsNullOrEmpty(value))
         {
             return EmptyQueryDictionary;
         }
 
-        var query = value[0] == '?' 
-            ? value.TrimStart('?') 
-            : value.Substring(index + 1, value.Length - index - 1);
-
-        if (string.IsNullOrEmpty(query))
+        var index = value.IndexOf('?');
+        if (index < 0 || index >= value.Length)
         {
             return EmptyQueryDictionary;
         }
+
+        var startIndex = index + 1;
         
-        return query
+        var query = value.AsSpan(startIndex);
+        
+        return query.ToString()
             .Split('&', StringSplitOptions.RemoveEmptyEntries)
             .Select(part => part.Split('='))
             .ToDictionary(

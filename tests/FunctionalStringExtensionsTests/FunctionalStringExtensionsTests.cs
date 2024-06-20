@@ -278,6 +278,8 @@ public class FunctionalStringExtensionsTests
     [InlineData("")]
     [InlineData("not a valid url")]
     [InlineData("?")]
+    [InlineData(" ")]
+    [InlineData("variable1=true?")]
     public void ParseQueryString_ShouldReturnEmptyListWhenNotAValidInput(string? value)
     {
         var result = value.ParseQueryString();
@@ -346,6 +348,9 @@ public class FunctionalStringExtensionsTests
     [InlineData("?not a valid url", "not a valid url=")]
     [InlineData("?not a valid url&&&&&", "not a valid url=")]
     [InlineData("?not a valid url&&&&&=value", "not a valid url=|=value")]
+    [InlineData(" ?not a valid url&&&&&=value ", "not a valid url=|=value ")]
+    [InlineData("variable1=15&variable2=is that a question?&variable3=true&variable4=33.88&variable5=", "variable3=true|variable4=33.88|variable5=")]
+
     public void ParseQueryString_EdgeCasesShouldReturnListOfKeyValues(string? value, string expectedPipedString)
     {
         var result = value.ParseQueryString(autoConvertType: false);
