@@ -12,13 +12,13 @@
         <PackageReadmeFile>NuGet.md</PackageReadmeFile>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <Authors>Ricardo Tondello</Authors>
-        <PackageIcon>convenient.png</PackageIcon>
+        <PackageIcon>rt.png</PackageIcon>
         <RootNamespace>FunctionalStringExtensions</RootNamespace>
     </PropertyGroup>
     <ItemGroup>
         <None Include="..\docs\NuGet.md" Pack="true" PackagePath="\"/>
         <None Include="..\LICENSE" Pack="true" PackagePath="LICENSE"/>
-        <None Include="convenient.png" Pack="true" PackagePath=""/>
+        <None Include="rt.png" Pack="true" PackagePath=""/>
     </ItemGroup>
 
 </Project>
