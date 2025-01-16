@@ -1,5 +1,4 @@
 using System.Text.RegularExpressions;
-using FluentAssertions;
 using FunctionalStringExtensions;
 
 namespace FunctionalStringExtensionsTests;
@@ -15,7 +14,7 @@ public class FunctionalStringExtensionsTests
         var result = value.OrDefault("abc");
 
         //Assert
-        result.Should().Be("abc");
+        Assert.Equal("abc", result);
     }
 
     [Theory]
@@ -26,7 +25,7 @@ public class FunctionalStringExtensionsTests
         var result = await value.OrDefaultAsync(Task.FromResult("abc"));
 
         //Assert
-        result.Should().Be(value);
+        Assert.Equal(value, result);
     }
 
     [Theory]
@@ -38,7 +37,7 @@ public class FunctionalStringExtensionsTests
         var result = await value.OrDefaultAsync(Task.FromResult("abc"));
 
         //Assert
-        result.Should().Be("abc");
+        Assert.Equal("abc", result);
     }
 
     [Theory]
@@ -49,7 +48,7 @@ public class FunctionalStringExtensionsTests
         var result = value.OrDefault("abc");
 
         //Assert
-        result.Should().Be(value);
+        Assert.Equal(value, result);
     }
 
     [Theory]
@@ -61,7 +60,7 @@ public class FunctionalStringExtensionsTests
         var result = value.WhenNullOrEmpty(() => "abc");
 
         //Assert
-        result.Should().Be("abc");
+        Assert.Equal("abc", result);
     }
 
     [Theory]
@@ -72,7 +71,7 @@ public class FunctionalStringExtensionsTests
         var result = value.WhenNullOrEmpty(() => "abc");
 
         //Assert
-        result.Should().Be(value);
+        Assert.Equal(value, result);
     }
 
     [Theory]
@@ -84,7 +83,7 @@ public class FunctionalStringExtensionsTests
         var result = await value.WhenNullOrEmptyAsync(() => Task.FromResult("abc"));
 
         //Assert
-        result.Should().Be("abc");
+        Assert.Equal("abc", result);
     }
 
     [Theory]
@@ -95,7 +94,7 @@ public class FunctionalStringExtensionsTests
         var result = await value.WhenNullOrEmptyAsync(() => Task.FromResult("abc"));
 
         //Assert
-        result.Should().Be(value);
+        Assert.Equal(value, result);
     }
 
     [Theory]
@@ -110,7 +109,7 @@ public class FunctionalStringExtensionsTests
         value.OnNullOrEmpty(Act);
 
         //Assert
-        initValue.Should().BeGreaterThan(0);
+        Assert.True(initValue > 0);
         return;
 
         void Act()
@@ -131,7 +130,7 @@ public class FunctionalStringExtensionsTests
         await value.OnNullOrEmptyAsync(Task.Run(() => Act(ref initValue)));
 
         //Assert
-        initValue.Should().BeGreaterThan(0);
+        Assert.True(initValue > 0);
         return;
 
         void Act(ref int change)
@@ -149,62 +148,60 @@ public class FunctionalStringExtensionsTests
     {
         //Arrange Act
         var result = text.ToSlug();
-        
+
         //Assert
-        result.Should().Be(expected);
+        Assert.Equal(expected, result);
     }
-    
+
     [Fact]
     public void ToSlugShouldThrowRegexMatchTimeoutExceptionWhenStringIsToLong()
     {
         //Arrange
         var text = string.Concat(Enumerable.Repeat("a", 10_000_000));
-        
+
         // Act
-        Action act = () => text.ToSlug();
-        
         //Assert
-        act.Should().Throw<RegexMatchTimeoutException>();
+        Assert.Throws<RegexMatchTimeoutException>(() => text.ToSlug());
     }
 
     [Fact]
     public void ToEnumShouldTransformToEnumStruct()
     {
         //Arrange
-        var stringEnum = "Value1";
-        
+        const string stringEnum = "Value1";
+
         //Act
         var result = stringEnum.ToEnum<FakeEnum>();
-        
+
         //Assert
-        result.Should().Be(FakeEnum.Value1);
+        Assert.Equal(FakeEnum.Value1, result);
     }
-    
+
     [Theory]
     [InlineData(FakeEnum.Value2)]
     public void ToEnumShouldReturnChosenDefaultValueWhenStringIsInvalid(FakeEnum fakeEnum)
     {
         //Arrange
-        var stringEnum = "Invalid";
-        
+        const string stringEnum = "Invalid";
+
         //Act
         var result = stringEnum.ToEnum<FakeEnum>(fakeEnum);
-        
+
         //Assert
-        result.Should().Be(fakeEnum);
+        Assert.Equal(fakeEnum, result);
     }
-    
+
     [Fact]
     public void ToEnumShouldReturnDefaultValueWhenStringIsInvalid()
     {
         //Arrange
-        var stringEnum = "Invalid";
-        
+        const string stringEnum = "Invalid";
+
         //Act
         var result = stringEnum.ToEnum<FakeEnum>();
-        
+
         //Assert
-        result.Should().Be(FakeEnum.Value1);
+        Assert.Equal(FakeEnum.Value1, result);
     }
 
     [Theory]
@@ -218,11 +215,11 @@ public class FunctionalStringExtensionsTests
     {
         //Arrange & Act
         var result = value.OnlyLetters();
-        
+
         //Assert
-        result.Should().Be(expected);
+        Assert.Equal(expected, result);
     }
-    
+
     [Theory]
     [InlineData(null, "")]
     [InlineData("", "")]
@@ -235,11 +232,11 @@ public class FunctionalStringExtensionsTests
     {
         //Arrange & Act
         var result = value.OnlyNumbers();
-        
+
         //Assert
-        result.Should().Be(expected);
+        Assert.Equal(expected, result);
     }
-    
+
     [Theory]
     [InlineData(null, "")]
     [InlineData("", "")]
@@ -251,11 +248,11 @@ public class FunctionalStringExtensionsTests
     {
         //Arrange & Act
         var result = value.OnlyCharactersAndNumbers();
-        
+
         //Assert
-        result.Should().Be(expected);
+        Assert.Equal(expected, result);
     }
-    
+
     [Theory]
     [InlineData(null, "")]
     [InlineData("", "")]
@@ -268,9 +265,9 @@ public class FunctionalStringExtensionsTests
     {
         //Arrange & Act
         var result = value.OnlySpecialCharacters();
-        
+
         //Assert
-        result.Should().Be(expected);
+        Assert.Equal(expected, result);
     }
 
     [Theory]
@@ -284,11 +281,11 @@ public class FunctionalStringExtensionsTests
     {
         var result = value.ParseQueryString();
 
-        result.Should().BeEmpty();
+        Assert.Empty(result);
     }
-    
+
     [Theory]
-    [InlineData("http://yoursite.com?variable1=false", "variable1",  false)]
+    [InlineData("http://yoursite.com?variable1=false", "variable1", false)]
     [InlineData("http://yoursite.com?variable1=False", "variable1", false)]
     [InlineData("http://yoursite.com?variable1=1", "variable1", 1)]
     [InlineData("http://yoursite.com?variable1=19.86", "variable1", 19.86)]
@@ -297,19 +294,23 @@ public class FunctionalStringExtensionsTests
     [InlineData("?variable1=1", "variable1", 1)]
     [InlineData("?variable1=0.77", "variable1", 0.77)]
     [InlineData("?variable1=test", "variable1", "test")]
-    public void ParseQueryString_ConvertType_ShouldReturnListOfKeyValues(string? value, string expectedKey, object expectedValue)
+    public void ParseQueryString_ConvertType_ShouldReturnListOfKeyValues(string? value, string expectedKey,
+        object expectedValue)
     {
         var result = value.ParseQueryString(autoConvertType: true);
 
-        result.Should().NotBeEmpty();
-        result.Should().HaveCount(1);
-        result.First().Key.Should().Be(expectedKey);
-        result.First().Value.Should().Be(expectedValue);
-        result.First().Value.Should().BeOfType(expectedValue.GetType());
+        Assert.NotEmpty(result);
+        Assert.Single(result);
+        Assert.Equal(expectedKey, result.First()
+            .Key);
+        Assert.Equal(expectedValue, result.First()
+            .Value);
+        Assert.IsType(expectedValue.GetType(), result.First()
+            .Value);
     }
-    
+
     [Theory]
-    [InlineData("http://yoursite.com?variable1=false", "variable1",  "false")]
+    [InlineData("http://yoursite.com?variable1=false", "variable1", "false")]
     [InlineData("http://yoursite.com?variable1=False", "variable1", "False")]
     [InlineData("http://yoursite.com?variable1=1", "variable1", "1")]
     [InlineData("http://yoursite.com?variable1=19.86", "variable1", "19.86")]
@@ -318,50 +319,57 @@ public class FunctionalStringExtensionsTests
     [InlineData("?variable1=1", "variable1", "1")]
     [InlineData("?variable1=0.77", "variable1", "0.77")]
     [InlineData("?variable1=test", "variable1", "test")]
-    public void ParseQueryString_WithoutConversion_ShouldReturnListOfKeyValues(string? value, string expectedKey, string expectedValue)
+    public void ParseQueryString_WithoutConversion_ShouldReturnListOfKeyValues(string? value, string expectedKey,
+        string expectedValue)
     {
         var result = value.ParseQueryString(autoConvertType: false);
 
-        result.Should().NotBeEmpty();
-        result.Should().HaveCount(1);
-        result.First().Key.Should().Be(expectedKey);
-        result.First().Value.Should().Be(expectedValue);
-        result.First().Value.Should().BeOfType<string>();
+        Assert.NotEmpty(result);
+        Assert.Single(result);
+        Assert.Equal(expectedKey, result.First()
+            .Key);
+        Assert.Equal(expectedValue, result.First()
+            .Value);
+        Assert.IsType<string>(result.First()
+            .Value);
     }
-    
+
     [Theory]
-    [InlineData("?variable1=15&variable2=is that a question?&variable3=true&variable4=33.88&variable5=", "variable1=15|variable2=is that a question?|variable3=true|variable4=33.88|variable5=")]
+    [InlineData("?variable1=15&variable2=is that a question?&variable3=true&variable4=33.88&variable5=",
+        "variable1=15|variable2=is that a question?|variable3=true|variable4=33.88|variable5=")]
     public void ParseQueryString_ShouldReturnListOfKeyValues(string? value, string expectedPipedString)
     {
-         var result = value.ParseQueryString(autoConvertType: false);
-    
-         var expected = expectedPipedString
-             .Split('|', StringSplitOptions.RemoveEmptyEntries)
-             .Select(s => s.Split('='))
-             .ToDictionary(k => k[0], v => v[1]);
-         
-        result.Should().NotBeEmpty();
-        result.Should().BeEquivalentTo(expected);
+        var result = value.ParseQueryString(autoConvertType: false);
+
+        var expected = expectedPipedString.Split('|', StringSplitOptions.RemoveEmptyEntries)
+            .Select(s => s.Split('='))
+            .ToDictionary(k => k[0], v => v[1]);
+
+        Assert.NotEmpty(result);
+        Assert.Equivalent(expected, result);
     }
-    
+
     [Theory]
     [InlineData("?not a valid url", "not a valid url=")]
     [InlineData("?not a valid url&&&&&", "not a valid url=")]
     [InlineData("?not a valid url&&&&&=value", "not a valid url=|=value")]
     [InlineData(" ?not a valid url&&&&&=value ", "not a valid url=|=value ")]
-    [InlineData("variable1=15&variable2=is that a question?&variable3=true&variable4=33.88&variable5=", "variable3=true|variable4=33.88|variable5=")]
-
+    [InlineData("variable1=15&variable2=is that a question?&variable3=true&variable4=33.88&variable5=",
+        "variable3=true|variable4=33.88|variable5=")]
     public void ParseQueryString_EdgeCasesShouldReturnListOfKeyValues(string? value, string expectedPipedString)
     {
         var result = value.ParseQueryString(autoConvertType: false);
-    
-        var expected = expectedPipedString
-            .Split('|')
+
+        var expected = expectedPipedString.Split('|')
             .Select(s => s.Split('='))
-            .ToDictionary(k => k.Length > 0? k[0] : string.Empty, v => v.Length > 1 ? v[1]: string.Empty);
-         
-        result.Should().NotBeEmpty();
-        result.Should().BeEquivalentTo(expected);
+            .ToDictionary(k => k.Length > 0
+                ? k[0]
+                : string.Empty, v => v.Length > 1
+                ? v[1]
+                : string.Empty);
+
+        Assert.NotEmpty(result);
+        Assert.Equivalent(expected, result);
     }
 }
 
