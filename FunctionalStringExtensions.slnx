@@ -1,4 +1,8 @@
 <Solution>
-  <Project Path="src/FunctionalStringExtensions.csproj" />
-  <Project Path="tests/FunctionalStringExtensionsTests/FunctionalStringExtensionsTests.csproj" />
+  <Folder Name="/src/">
+    <Project Path="src/FunctionalStringExtensions.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/FunctionalStringExtensionsTests/FunctionalStringExtensionsTests.csproj" />
+  </Folder>
 </Solution>
