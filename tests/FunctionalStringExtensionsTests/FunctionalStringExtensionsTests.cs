@@ -119,6 +119,26 @@ public class FunctionalStringExtensionsTests
     }
 
     [Theory]
+    [InlineData("test value")]
+    public void ShouldNotExecuteActionValueWhenStringIsValid(string value)
+    {
+        //Arrange
+        var initValue = 0;
+
+        //Act
+        value.OnNullOrEmpty(Act);
+
+        //Assert
+        Assert.Equal(0, initValue);
+        return;
+
+        void Act()
+        {
+            initValue++;
+        }
+    }
+
+    [Theory]
     [InlineData(null)]
     [InlineData("")]
     public async Task ShouldExecuteActionValueAsyncWhenStringIsInvalid(string? value)
@@ -137,6 +157,21 @@ public class FunctionalStringExtensionsTests
         {
             change++;
         }
+    }
+
+    [Theory]
+    [InlineData("test value")]
+    public async Task ShouldNotAwaitActionAsyncWhenStringIsValid(string value)
+    {
+        //Arrange
+        var neverCompletes = new TaskCompletionSource().Task;
+
+        //Act
+        var resultTask = value.OnNullOrEmptyAsync(neverCompletes);
+        var firstCompleted = await Task.WhenAny(resultTask, Task.Delay(TimeSpan.FromMilliseconds(200)));
+
+        //Assert
+        Assert.Same(resultTask, firstCompleted);
     }
 
     [Theory]
